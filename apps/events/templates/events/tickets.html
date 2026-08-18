@@ -1,0 +1,2 @@
+{% extends "base.html" %}
+{% block content %}<header class="page-hero"><div class="shell hero-content"><p class="eyebrow">— Tickets</p><h1>{{ event.title }}</h1><p>Select registration to reserve your place.</p><a class="button button-gold" href="/events/{{ event.slug }}/register/">{% if event.ticket_price %}Register · ₦{{ event.ticket_price }}{% else %}Free Registration{% endif %}</a></div></header>{% endblock %}

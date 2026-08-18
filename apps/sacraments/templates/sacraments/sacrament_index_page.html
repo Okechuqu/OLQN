@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% load wagtailcore_tags %}
+{% block content %}<header class="page-hero"><div class="shell hero-content"><p class="eyebrow">— Life in Christ</p><h1>{{ page.title }}</h1><p>{{ page.intro }}</p></div></header><div class="shell content-stack"><section class="three-card-grid">{% for sacrament in sacraments %}<a class="card feature-card" href="{% pageurl sacrament %}"><span class="round-icon">✟</span><div><h2>{{ sacrament.title }}</h2><p>{{ sacrament.intro }}</p><strong>Preparation details →</strong></div></a>{% endfor %}</section></div>{% endblock %}

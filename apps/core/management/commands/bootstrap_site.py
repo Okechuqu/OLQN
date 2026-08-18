@@ -1,11 +1,26 @@
+from datetime import timedelta
+
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.utils import timezone
 from wagtail.models import Page, Site
 
-from apps.bulletins.models import BulletinIndexPage
-from apps.events.models import EventIndexPage
+from apps.announcements.models import AnnouncementIndexPage
+from apps.bulletins.models import AnnouncementPage, BulletinIndexPage, BulletinPage
+from apps.clergy.models import LeadershipPage
+from apps.events.models import EventIndexPage, EventPage
+from apps.gallery.models import GalleryPage
 from apps.home.models import HomePage
-from apps.parish.models import AboutPage, ContactPage, MassTimesPage, MinistryIndexPage
+from apps.livestream.models import LivestreamPage
+from apps.parish.models import (
+    AboutPage,
+    ContactPage,
+    MassTimesPage,
+    MinistryIndexPage,
+    MinistryPage,
+)
+from apps.projects.models import ProjectIndexPage, ProjectPage
+from apps.sacraments.models import SacramentIndexPage, SacramentPage
 
 
 class Command(BaseCommand):
@@ -57,6 +72,13 @@ class Command(BaseCommand):
         )
         self.create_page(
             homepage,
+            LeadershipPage,
+            slug="leadership",
+            title="Parish Leadership",
+            intro="Meet the clergy and pastoral leaders serving our parish community.",
+        )
+        self.create_page(
+            homepage,
             MassTimesPage,
             slug="mass-times",
             title="Mass Times & Confession",
@@ -65,7 +87,43 @@ class Command(BaseCommand):
                 "of Reconciliation."
             ),
         )
-        self.create_page(
+        sacraments = self.create_page(
+            homepage,
+            SacramentIndexPage,
+            slug="sacraments",
+            title="The Sacraments",
+            intro="Encounter Christ through the sacramental life of the Church.",
+        )
+        for slug, title, intro, preparation in [
+            (
+                "baptism",
+                "Baptism",
+                "Begin the Christian journey through water and the Holy Spirit.",
+                "Contact the parish office to register for the preparation class.",
+            ),
+            (
+                "matrimony",
+                "Holy Matrimony",
+                "Prepare to enter the covenant of Christian marriage.",
+                "Contact the parish office at least six months before the proposed date.",
+            ),
+            (
+                "confirmation",
+                "Confirmation",
+                "Receive the fullness of the gifts of the Holy Spirit.",
+                "Candidates complete the approved parish formation programme.",
+            ),
+        ]:
+            self.create_page(
+                sacraments,
+                SacramentPage,
+                slug=slug,
+                title=title,
+                intro=intro,
+                body=intro,
+                preparation=preparation,
+            )
+        ministries = self.create_page(
             homepage,
             MinistryIndexPage,
             slug="ministries",
@@ -75,14 +133,49 @@ class Command(BaseCommand):
                 "belong, serve and grow in faith."
             ),
         )
-        self.create_page(
+        for slug, title, intro in [
+            ("cyon", "CYON", "Catholic Youth Organisation of Nigeria."),
+            ("cwo", "CWO", "Catholic Women Organisation."),
+            ("cmo", "CMO", "Catholic Men Organisation."),
+        ]:
+            self.create_page(
+                ministries, MinistryPage, slug=slug, title=title, intro=intro
+            )
+        bulletin_index = BulletinIndexPage.objects.first()
+        if bulletin_index and bulletin_index.slug != "bulletins":
+            bulletin_index.slug = "bulletins"
+            bulletin_index.save_revision().publish()
+        bulletins = self.create_page(
             homepage,
             BulletinIndexPage,
-            slug="bulletin",
+            slug="bulletins",
             title="Parish Bulletin",
             intro="Read weekly notices, liturgical information and news from our parish community.",
         )
         self.create_page(
+            bulletins,
+            BulletinPage,
+            slug="latest-parish-bulletin",
+            title="Latest Parish Bulletin",
+            bulletin_date=timezone.localdate(),
+            summary="The latest notices and liturgical information from OLQN.",
+        )
+        announcements = self.create_page(
+            homepage,
+            AnnouncementIndexPage,
+            slug="announcements",
+            title="Announcements & Updates",
+            intro="Important notices and timely updates from the parish community.",
+        )
+        self.create_page(
+            announcements,
+            AnnouncementPage,
+            slug="welcome-to-olqn-updates",
+            title="Welcome to OLQN Updates",
+            published_at=timezone.localdate(),
+            body="Important parish announcements will be published here.",
+        )
+        events = self.create_page(
             homepage,
             EventIndexPage,
             slug="events",
@@ -91,6 +184,46 @@ class Command(BaseCommand):
                 "Register, buy tickets and stay updated on parish events, programmes "
                 "and community gatherings."
             ),
+        )
+        self.create_page(
+            events,
+            EventPage,
+            slug="parish-family-day",
+            title="Parish Family Day",
+            start_at=timezone.now() + timedelta(days=30),
+            venue="Pro-Cathedral Grounds",
+            body="A day of faith, fellowship and community for the whole parish.",
+            ticket_price=0,
+            featured=True,
+        )
+        projects = self.create_page(
+            homepage,
+            ProjectIndexPage,
+            slug="projects",
+            title="Parish Projects",
+            intro="Together we build for worship, service and future generations.",
+        )
+        self.create_page(
+            projects,
+            ProjectPage,
+            slug="parish-development",
+            title="Parish Development",
+            summary="Supporting facilities for worship, formation and community life.",
+            body="Follow progress and support this parish development initiative.",
+        )
+        self.create_page(
+            homepage,
+            GalleryPage,
+            slug="gallery",
+            title="Parish Gallery",
+            intro="Moments of worship, fellowship and service in our parish community.",
+        )
+        self.create_page(
+            homepage,
+            LivestreamPage,
+            slug="watch-live",
+            title="Watch Live",
+            intro="Join Mass and special celebrations from OLQN Pro-Cathedral.",
         )
         self.create_page(
             homepage,

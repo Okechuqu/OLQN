@@ -1,7 +1,7 @@
 <footer class="footer">
   <div class="shell footer-grid">
     <div><h2>{{ site_settings.parish_name }}</h2><p class="gold">Mary, Our Queen. Christ, Our King.</p></div>
-    <div><h3>Quick Links</h3><a href="/about/">About us</a><a href="/mass-times/">Mass times</a><a href="/ministries/">Ministries</a><a href="/bulletin/">Bulletin</a><a href="/events/">Events</a><a href="/give/">Give</a><a href="/contact/">Contact</a></div>
+    <div><h3>Quick Links</h3><a href="/about/">About us</a><a href="/mass-times/">Mass times</a><a href="/ministries/">Ministries</a><a href="/bulletins/">Bulletin</a><a href="/events/">Events</a><a href="/give/">Give</a><a href="/contact/">Contact</a></div>
     <div><h3>Contact Us</h3><p>{{ site_settings.address|linebreaksbr }}</p>{% if site_settings.phone %}<a href="tel:{{ site_settings.phone }}">{{ site_settings.phone }}</a>{% endif %}{% if site_settings.email %}<a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a>{% endif %}</div>
   </div>
   <p class="copyright">© {% now "Y" %} Our Lady Queen of Nigeria Catholic Pro-Cathedral.</p>

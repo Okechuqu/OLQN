@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% load wagtailcore_tags %}
+{% block content %}
+<header class="page-hero"><div class="shell hero-content"><p class="eyebrow">— Parish News</p><h1>{{ page.title }}</h1><p>{{ page.intro }}</p></div></header>
+<div class="shell content-stack"><section><div class="section-heading"><h2>Latest Announcements</h2></div><div class="bulletin-grid">{% for announcement in announcements %}<article class="card"><p class="eyebrow">{{ announcement.published_at|date:"j F Y" }}</p><h2><a href="{% pageurl announcement %}">{{ announcement.title }}</a></h2><p>{{ announcement.body|richtext|striptags|truncatewords:32 }}</p><a class="button button-light" href="{% pageurl announcement %}">Read update</a></article>{% empty %}<div class="card"><h2>No announcements yet</h2><p>Parish announcements published through the CMS will appear here.</p></div>{% endfor %}</div></section></div>
+{% endblock %}

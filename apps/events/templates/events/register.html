@@ -1,0 +1,2 @@
+{% extends "base.html" %}
+{% block content %}<header class="page-hero"><div class="shell hero-content"><p class="eyebrow">— Event Registration</p><h1>{{ event.title }}</h1><p>{{ event.start_at }} · {{ event.venue }}</p></div></header><div class="shell content-stack"><section class="card"><h2>Register</h2><form class="contact-form" method="post">{% csrf_token %}{{ form.as_p }}<button class="button button-primary" type="submit">Continue</button></form></section></div>{% endblock %}
