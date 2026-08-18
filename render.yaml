@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: olqn-web
+    runtime: python
+    buildCommand: poetry install --only main && npm ci && npm run build && poetry run python manage.py collectstatic --noinput && poetry run python manage.py migrate
+    startCommand: poetry run gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --threads 2 --timeout 60
+    healthCheckPath: /health/
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: olqn-db
+          property: connectionString
+databases:
+  - name: olqn-db
+    plan: basic-256mb
+    databaseName: olqn

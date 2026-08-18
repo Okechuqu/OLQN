@@ -1,0 +1,12 @@
+{
+  "name": "olqn-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss -i ./static_src/css/app.css -o ./static/css/app.css --watch",
+    "build": "tailwindcss -i ./static_src/css/app.css -o ./static/css/app.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "tailwindcss": "^4.1.12"
+  }
+}

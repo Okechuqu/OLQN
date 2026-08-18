@@ -1,0 +1,12 @@
+.env.example
+.venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+.coverage
+htmlcov/
+.ruff_cache/
+node_modules/
+static/
+media/
+!.gitkeep

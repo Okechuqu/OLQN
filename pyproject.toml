@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "olqn"
+version = "0.1.0"
+description = "Our Lady Queen of Nigeria Catholic Pro-Cathedral website"
+authors = ["OLQN Web Team"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.2"
+wagtail = "^7.1"
+psycopg = {version = "^3.2", extras = ["binary"]}
+dj-database-url = "^3.0"
+django-environ = "^0.12"
+django-csp = "^4.0"
+django-storages = "^1.14"
+cloudinary = "^1.44"
+whitenoise = "^6.9"
+gunicorn = "^23.0"
+httpx = "^0.28"
+sentry-sdk = {version = "^2.35", extras = ["django"]}
+pillow = "^11.3"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.12"
+coverage = "^7.10"
+django-debug-toolbar = "^6.0"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "DJ"]
+
+[tool.ruff.lint.per-file-ignores]
+"config/settings/*.py" = ["F403", "F405"]
+"**/migrations/*.py" = ["E501"]
