@@ -12,7 +12,10 @@ class HomePage(Page):
     eyebrow = models.CharField(max_length=80, default="Welcome home")
     hero_title = models.CharField(max_length=180, default="Mary, Our Queen. Christ, Our King.")
     hero_text = models.TextField(
-        default="A community of faith, love and service, rooted in the Eucharist and devoted to Our Lady."
+        default=(
+            "A community of faith, love and service, rooted in the Eucharist "
+            "and devoted to Our Lady."
+        )
     )
     hero_image = models.ForeignKey(
         get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
@@ -34,8 +37,8 @@ class HomePage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+        from apps.bulletins.models import AnnouncementPage, BulletinPage
         from apps.events.models import EventPage
-        from apps.news.models import AnnouncementPage, BulletinPage
         from apps.parish.models import MinistryPage
 
         context.update(

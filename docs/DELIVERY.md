@@ -7,14 +7,19 @@ OLQN/
 ├── apps/
 │   ├── core/       # global settings, navigation, shared services
 │   ├── home/       # homepage composition
-│   ├── parish/     # about, clergy, sacraments, schedules, ministries
-│   ├── events/     # calendar, registration, tickets, Paystack state
-│   ├── news/       # bulletins, announcements, subscriptions
-│   └── giving/     # campaigns, donations and receipts
+│   ├── parish/     # parish identity and standard content
+│   ├── worship/    # mass, confession and adoration schedules
+│   ├── ministries/ # ministry directory and enquiries
+│   ├── events/     # calendar and event content
+│   ├── tickets/    # registration, QR and check-in services
+│   ├── payments/   # Paystack verification, webhooks and refunds
+│   ├── bulletins/  # weekly parish bulletins
+│   ├── announcements/
+│   └── donations/  # campaigns, donations and receipts
 ├── config/settings/{base,dev,prod}.py
 ├── templates/{includes,home,parish,events,news,giving}/
-├── static_src/{css,js}/
-├── static/         # compiled frontend output
+├── static/src/     # frontend source
+├── static/dist/    # compiled frontend output
 ├── docs/
 ├── manage.py
 ├── pyproject.toml

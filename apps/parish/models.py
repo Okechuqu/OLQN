@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.db import models
+from django.shortcuts import redirect
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images import get_image_model_string
@@ -14,6 +16,58 @@ class StandardPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("intro"), FieldPanel("hero_image"), FieldPanel("body")
     ]
+
+
+class AboutPage(StandardPage):
+    template = "parish/about_page.html"
+    max_count = 1
+
+
+class MassTimesPage(StandardPage):
+    template = "parish/mass_times_page.html"
+    max_count = 1
+
+
+class ContactPage(StandardPage):
+    template = "parish/contact_page.html"
+    max_count = 1
+
+    def serve(self, request, *args, **kwargs):
+        if request.method == "POST":
+            required = [
+                request.POST.get("name", "").strip(),
+                request.POST.get("email", "").strip(),
+                request.POST.get("message", "").strip(),
+            ]
+            if all(required):
+                ContactSubmission.objects.create(
+                    name=required[0],
+                    email=required[1],
+                    phone=request.POST.get("phone", "").strip(),
+                    subject=request.POST.get("subject", "General enquiry").strip(),
+                    message=required[2],
+                )
+                messages.success(
+                    request, "Thank you. Your message has been sent to the parish office."
+                )
+                return redirect(self.url)
+            messages.error(request, "Please complete your name, email and message.")
+        return super().serve(request, *args, **kwargs)
+
+
+class ContactSubmission(models.Model):
+    name = models.CharField(max_length=160)
+    email = models.EmailField()
+    phone = models.CharField(max_length=40, blank=True)
+    subject = models.CharField(max_length=120)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.name}: {self.subject}"
 
 
 class MinistryIndexPage(StandardPage):

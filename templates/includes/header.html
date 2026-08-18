@@ -5,12 +5,6 @@
       {% if site_settings.logo %}{% image site_settings.logo fill-96x96 format-webp loading="eager" class="brand-logo" %}{% else %}<span class="brand-mark">M</span>{% endif %}
       <span><strong>{{ site_settings.parish_name }}</strong><small>{{ site_settings.location_label }}</small></span>
     </a>
-    <button class="menu-button lg:hidden" type="button" aria-controls="primary-navigation" aria-expanded="false" data-menu-button><span class="sr-only">Open menu</span>☰</button>
-    <nav id="primary-navigation" class="primary-nav" aria-label="Primary" data-menu>
-      <a href="/">Home</a><a href="/about/">About</a><a href="/mass-times/">Mass Times</a>
-      <a href="/ministries/">Ministries</a><a href="/bulletins/">Bulletin</a><a href="/events/">Events</a>
-      <a href="/give/">Give</a><a href="/contact/">Contact</a>
-      {% if site_settings.live_stream_url %}<a class="button button-primary" href="{{ site_settings.live_stream_url }}">▷ Watch live</a>{% endif %}
-    </nav>
+    {% include "includes/mobile_nav.html" %}
   </div>
 </header>

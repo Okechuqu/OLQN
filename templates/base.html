@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#04377c">
-  <title>{% block title %}{{ page.seo_title|default:page.title|default:"OLQN Pro-Cathedral" }}{% endblock %}</title>
+  <title>{% block title %}{% if page %}{{ page.seo_title|default:page.title }} · OLQN{% else %}OLQN Pro-Cathedral{% endif %}{% endblock %}</title>
   <meta name="description" content="{% block description %}Our Lady Queen of Nigeria Catholic Pro-Cathedral, Garki, Abuja.{% endblock %}">
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
@@ -14,7 +14,8 @@
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
   <a href="#main" class="skip-link">Skip to content</a>
   {% include "includes/header.html" %}
-  <main id="main">{% block content %}{% endblock %}</main>
+  <main id="main">{% include "includes/messages.html" %}{% block content %}{% endblock %}</main>
+  {% include "includes/newsletter.html" %}
   {% include "includes/footer.html" %}
 </body>
 </html>

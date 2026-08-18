@@ -14,8 +14,11 @@ class EventIndexPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["events"] = EventPage.objects.child_of(
+        events = EventPage.objects.child_of(
             self).live().public().order_by("start_at")
+        context["events"] = events
+        context["featured_event"] = events.filter(
+            featured=True).first() or events.first()
         return context
 
 
@@ -59,3 +62,6 @@ class Registration(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.name} — {self.event.title}"

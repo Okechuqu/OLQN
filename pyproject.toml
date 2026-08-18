@@ -21,6 +21,7 @@ gunicorn = "^23.0"
 httpx = "^0.28"
 sentry-sdk = {version = "^2.35", extras = ["django"]}
 pillow = "^11.3"
+django-treebeard = ">=4.8,<5.3"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.12"

@@ -628,13 +628,13 @@ typing_extensions = "*"
 
 [[package]]
 name = "django-treebeard"
-version = "5.3.0"
+version = "5.2.2"
 description = "Efficient tree implementations for Django"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "django_treebeard-5.3.0-py3-none-any.whl", hash = "sha256:ae9e570fa74b4c882bc08def1f0c97d27f163b6285a19f3383027d074882e9f4"},
-    {file = "django_treebeard-5.3.0.tar.gz", hash = "sha256:8606cefd3a65689e99d2a493e5af8a8ece450b96915c949b5c72f6f302cfbe19"},
+    {file = "django_treebeard-5.2.2-py3-none-any.whl", hash = "sha256:1ca902609860e1e9d87a531c34397ebca7f0d5fc72c6f8dd83c808eb6838c0c5"},
+    {file = "django_treebeard-5.2.2.tar.gz", hash = "sha256:4863191d8cd63daaa985f0853293ccae8c459e3d44963c4e4eec80dae7156e98"},
 ]
 
 [package.dependencies]
@@ -1410,4 +1410,4 @@ wand = ["Wand (>=0.6,<1.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "1a0073dda40728c46ae10538645221b59064607eaeeaa79e235c92e38fce05e6"
+content-hash = "e0480cf1047ca009ff72bcf5b4df315900e42867b2e84d3cc2d5090d5db3f942"

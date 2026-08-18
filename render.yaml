@@ -2,12 +2,12 @@ services:
   - type: web
     name: olqn-web
     runtime: python
-    buildCommand: poetry install --only main && npm ci && npm run build && poetry run python manage.py collectstatic --noinput && poetry run python manage.py migrate
+    buildCommand: poetry install --only main && npm ci && npm run build && poetry run python manage.py collectstatic --noinput && poetry run python manage.py migrate && poetry run python manage.py bootstrap_site
     startCommand: poetry run gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --threads 2 --timeout 60
     healthCheckPath: /health/
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: config.settings.prod
+        value: config.settings.production
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DATABASE_URL

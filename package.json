@@ -2,8 +2,8 @@
   "name": "olqn-frontend",
   "private": true,
   "scripts": {
-    "dev": "tailwindcss -i ./static_src/css/app.css -o ./static/css/app.css --watch",
-    "build": "tailwindcss -i ./static_src/css/app.css -o ./static/css/app.css --minify"
+    "dev": "tailwindcss -i ./static/src/css/app.css -o ./static/dist/css/app.css --watch",
+    "build": "tailwindcss -i ./static/src/css/app.css -o ./static/dist/css/app.css --minify && mkdir -p ./static/dist/js && cp ./static/src/js/app.js ./static/dist/js/app.js"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.12",

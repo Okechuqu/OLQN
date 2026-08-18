@@ -11,12 +11,29 @@ DEBUG = False
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
 
 INSTALLED_APPS = [
-    "apps.home",
-    "apps.core",
-    "apps.parish",
-    "apps.events",
-    "apps.news",
-    "apps.giving",
+    "apps.core.apps.CoreConfig",
+    "apps.home.apps.HomeConfig",
+    "apps.parish.apps.ParishConfig",
+    "apps.clergy.apps.ClergyConfig",
+    "apps.worship.apps.WorshipConfig",
+    "apps.sacraments.apps.SacramentsConfig",
+    "apps.ministries.apps.MinistriesConfig",
+    "apps.bulletins.apps.BulletinsConfig",
+    "apps.announcements.apps.AnnouncementsConfig",
+    "apps.events.apps.EventsConfig",
+    "apps.tickets.apps.TicketsConfig",
+    "apps.payments.apps.PaymentsConfig",
+    "apps.donations.apps.DonationsConfig",
+    "apps.projects.apps.ProjectsConfig",
+    "apps.gallery.apps.GalleryConfig",
+    "apps.livestream.apps.LivestreamConfig",
+    "apps.newsletter.apps.NewsletterConfig",
+    "apps.forms.apps.FormsConfig",
+    "apps.accounts.apps.AccountsConfig",
+    "apps.dashboard.apps.DashboardConfig",
+    "apps.reports.apps.ReportsConfig",
+    "apps.notifications.apps.NotificationsConfig",
+    "apps.audit.apps.AuditConfig",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -90,7 +107,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "static" / "dist"]
 STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},

@@ -1,0 +1,5 @@
+<section class="newsletter shell" aria-labelledby="newsletter-title">
+  <div><span class="newsletter-icon">✉</span></div>
+  <div><h2 id="newsletter-title">Stay Connected</h2><p>Parish news, reflections and event updates in your inbox.</p></div>
+  <form class="newsletter-form" method="post" action="/newsletter/">{% csrf_token %}<label class="sr-only" for="newsletter-email">Email address</label><input id="newsletter-email" name="email" type="email" placeholder="Enter your email address" required><button class="button button-primary">Subscribe</button></form>
+</section>

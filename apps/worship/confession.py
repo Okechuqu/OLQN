@@ -1,0 +1,1 @@
+REGULAR_CONFESSION = "Saturday, 4:30pm–5:30pm"

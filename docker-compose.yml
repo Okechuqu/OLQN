@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: olqn
+      POSTGRES_USER: olqn
+      POSTGRES_PASSWORD: olqn-development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U olqn"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  web:
+    build: .
+    command: scripts/bootstrap.sh
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DATABASE_URL: postgres://olqn:olqn-development@db:5432/olqn
+      DJANGO_SECRET_KEY: docker-development-key
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+volumes:
+  postgres_data:
